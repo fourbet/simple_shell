@@ -1,6 +1,8 @@
 #ifndef HOLBERTON_H
 #define HOLBERTON_H
 
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -26,5 +28,12 @@ int nbr_words(char *str, char *sep);
 void print_array(char **tab);
 char *_strdup(char *str);
 int builtin_env(void);
+
+typedef struct element_t
+{
+	char *str;
+	unsigned int len;
+	struct element_t *next;
+} list_t;
 
 #endif
