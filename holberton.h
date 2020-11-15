@@ -3,6 +3,7 @@
 
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -28,6 +29,9 @@ int nbr_words(char *str, char *sep);
 void print_array(char **tab);
 char *_strdup(char *str);
 int builtin_env(void);
+void exec_cmd(char **cmd);
+char *_strcat(char *dest, char *src);
+char *get_path(char **cmd);
 
 typedef struct element_t
 {

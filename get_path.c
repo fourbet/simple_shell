@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <string.h>
+#include "holberton.h"
 
 int _strlen(char *s)
 {
@@ -84,16 +78,4 @@ char *get_path(char **cmd)
 	free(path_split);
 
 	return (result);
-}
-
-int main(void)
-{
-	char *cmd[] = {"pwd", NULL};
-	char * result = NULL;
-
-	result = get_path(cmd);
-	printf("result : %s\n", result);
-
-	free(result);
-	return (0);
 }
