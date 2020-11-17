@@ -6,19 +6,15 @@
  *
  */
 
-int builtin_env(void)
+void built_in_env(void)
 {
-	
-	extern char** environ;
-
+	extern char **environ;
 	int i = 0;
 
-	if (environ == NULL)
-		return (-1);
-	while (environ[i] != NULL)
+	while (environ[i])
 	{
-		printf("%s\n", environ[i]);
+		write(1, environ[i], _strlen(environ[i]));
+		putchar('\n');
 		i++;
 	}
-	return (0);
 }

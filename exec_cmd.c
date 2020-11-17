@@ -1,6 +1,6 @@
 #include "holberton.h"
 
-void exec_cmd(char **cmd)
+int exec_cmd(char **cmd, char *path)
 {
 	pid_t child_pid;
 	int status = 0;
@@ -11,8 +11,11 @@ void exec_cmd(char **cmd)
 
 	if (child_pid == 0)
 	{
-		if (execve(cmd[0], cmd, NULL) == -1)
+		if (execve(path, cmd, NULL) == -1)
+		{
 			perror("error execve");
+			return (-1);
+		}
 	}
 	else
 	{
@@ -20,5 +23,5 @@ void exec_cmd(char **cmd)
 		kill(child_pid, SIGTERM);
 	}
 
-	exit(EXIT_FAILURE);
+	return (1);
 }
