@@ -29,10 +29,11 @@ int nbr_words(char *str, char *sep);
 void print_array(char **tab);
 char *_strdup(char *str);
 int builtin_env(void);
-void exec_cmd(char **cmd);
+int exec_cmd(char *path, char **cmd);
 char *_strcat(char *dest, char *src);
-char *get_path(char **cmd);
-
+char *get_path(char *cmd);
+char **split(char *buffer);
+char *_getenv(const char *name);
 typedef struct element_t
 {
 	char *str;
