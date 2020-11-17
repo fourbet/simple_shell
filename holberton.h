@@ -21,18 +21,19 @@ typedef struct filter
 	int (*ptr_f)(void);
 } filt;
 
-int _strcmp(const char *init, char *other);
+int built_in_exit(void);
+int _strcmp(char *s1, char *s2);
 char **get_copy_env(char **env);
-int type_prompt(char **env);
+int type_prompt(void);
 int _strlen(char *s);
 void free_array(char **tab);
 int nbr_words(char *str, char *sep);
 void print_array(char **tab);
 char *_strdup(char *str);
 char *_getenv(const char *name);
-void built_in_env(void);
+int built_in_env(void);
 int exec_cmd(char **cmd, char *path);
-int exec_built(char **cmd);
+int exec_builtin(char *cmd);
 char *_strcat(char *dest, char *src);
 char *get_path(char **cmd);
 char **split(char *buffer);

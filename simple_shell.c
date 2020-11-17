@@ -13,27 +13,19 @@ int main(int ac, char **av, char **env)
 
 	while (1)
 	{
-		type_prompt(env);
-
+		type_prompt();
 		if (!getline(&buffer, &bufsize, stdin) > 0)
 			perror("error getline");
 
 		cmd = split(buffer);
-
 		if (cmd == NULL)
 		{
 			perror("error split");
 			return (-1);
 		}
-
-		built = exec_built(cmd);
+		built = exec_builtin(cmd[0]);
 		if (built == 0)
 			return (0);
-		if (built == -1)
-		{
-			perror("error is built in");
-			return (-1);
-		}
 
 		path = get_path(cmd);
 
@@ -68,5 +60,6 @@ int main(int ac, char **av, char **env)
 	free(buffer);
 	(void)ac;
 	(void)av;
+	(void)env;
 	return (0);
 }

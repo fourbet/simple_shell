@@ -6,7 +6,6 @@ char *_getenv(const char *name)
         char *env = NULL;
 	char *res = NULL;
 	int i = 0;
-	int len = 0;
 	char **envPtr;
 
 	envPtr = malloc(sizeof(char *) * 32);

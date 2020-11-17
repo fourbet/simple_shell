@@ -1,6 +1,6 @@
 #include "holberton.h"
 
-int type_prompt(char **env)
+int type_prompt(void)
 {
 	char *prompt = NULL;
 
