@@ -56,30 +56,26 @@ char **split(char *buffer)
 {
 	char separators[2] = " \n";
 	char *res = NULL;
-	char **tab;
+	char **tab = NULL;
 	int count = 0;
 	int k = 0;
-	int i = 0;
 
 	count = nbr_words(buffer, separators);
 	tab = malloc(sizeof(char *) * (count + 1));
+
 	if (tab == NULL)
 		return (0);
 	buffer = _strdup(buffer);
 	res = strtok(buffer, separators);
 
-	tab[k] = _strdup(res);
-
-	k++;
-
-	while (k <= count - 1)
+	while (res)
 	{
-		res = strtok(NULL, separators );
 		tab[k] = _strdup(res);
+		res = strtok(NULL, separators );
 		k++;
 	}
 	tab[k] = NULL;
 	free(buffer);
+
 	return (tab);
 }
-

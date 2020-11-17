@@ -21,6 +21,7 @@ typedef struct filter
 	int (*ptr_f)(void);
 } filt;
 
+int _strcmp(const char *init, char *other);
 char **get_copy_env(char **env);
 int type_prompt(char **env);
 int _strlen(char *s);
@@ -28,12 +29,15 @@ void free_array(char **tab);
 int nbr_words(char *str, char *sep);
 void print_array(char **tab);
 char *_strdup(char *str);
-int builtin_env(void);
-int exec_cmd(char *path, char **cmd);
-char *_strcat(char *dest, char *src);
-char *get_path(char *cmd);
-char **split(char *buffer);
 char *_getenv(const char *name);
+void built_in_env(void);
+int exec_cmd(char **cmd, char *path);
+int exec_built(char **cmd);
+char *_strcat(char *dest, char *src);
+char *get_path(char **cmd);
+char **split(char *buffer);
+
+
 typedef struct element_t
 {
 	char *str;

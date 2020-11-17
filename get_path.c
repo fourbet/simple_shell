@@ -10,6 +10,7 @@ int _strlen(char *s)
 	}
 	return (size);
 }
+
 char*_strcat(char *dest, char *src)
 {
 	int i;
@@ -43,11 +44,13 @@ char *get_path(char **cmd)
 	struct stat st;
 	int i = 0;
 
+	if (stat(cmd[0], &st) == 0)
+		return (cmd[0]);
+
  	ptr = strtok(path, ":");
 	while (ptr)
 	{
 		path_split[i] = strdup(ptr);
-		puts(ptr);
 		ptr = strtok(NULL, ":");
 		i++;
 	}
@@ -69,7 +72,9 @@ char *get_path(char **cmd)
 		i++;
 	}
 
-	result = strdup(path_split[i]);
+	if (path_split[i])
+		result = strdup(path_split[i]);
+
 	i = 0;
 	while (path_split[i])
 	{
