@@ -37,15 +37,12 @@ char*_strcat(char *dest, char *src)
 
 char *get_path(char **cmd)
 {
-	char *path = strdup(getenv("PATH"));
+	char *path = strdup(_getenv("PATH"));
 	char **path_split = malloc(sizeof(char *) * 64);
 	char *ptr;
 	char *result = NULL;
 	struct stat st;
 	int i = 0;
-
-	if (stat(cmd[0], &st) == 0)
-		return (cmd[0]);
 
  	ptr = strtok(path, ":");
 	while (ptr)
@@ -74,6 +71,9 @@ char *get_path(char **cmd)
 
 	if (path_split[i])
 		result = strdup(path_split[i]);
+
+	if (result == NULL && stat(cmd[0], &st) == 0)
+		result = cmd[0];	    
 
 	i = 0;
 	while (path_split[i])
