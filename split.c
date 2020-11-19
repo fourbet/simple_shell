@@ -3,7 +3,8 @@
 void free_array(char **tab)
 {
 	int i = 0;
-
+	if (tab == NULL)
+		return;
 	for(i = 0; tab[i]; i++)
 	{
 		free(tab[i]);
@@ -60,6 +61,8 @@ char **split(char *buffer)
 	int count = 0;
 	int k = 0;
 
+	if (buffer == NULL)
+		return (NULL);
 	count = nbr_words(buffer, separators);
 	tab = malloc(sizeof(char *) * (count + 1));
 
