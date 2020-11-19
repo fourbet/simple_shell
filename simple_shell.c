@@ -31,7 +31,7 @@ int main(int ac, char **av, char **env)
 			if (built == 0)
 				return (0);
 			path = get_path(cmd);
-			
+
 			if (path == NULL)
 			{
 				i = 0;
@@ -44,7 +44,7 @@ int main(int ac, char **av, char **env)
 				write(1, ": command not found", 20);
 				putchar('\n');
 			}
-			
+
 			if (path != NULL)
 			{
 				if (exec_cmd(cmd, path) == -1)
@@ -53,7 +53,7 @@ int main(int ac, char **av, char **env)
 					return (-1);
 				}
 			}
-			
+
 			while (cmd[i])
 				free(cmd[i++]);
 			free(cmd);
