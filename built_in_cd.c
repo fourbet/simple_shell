@@ -5,31 +5,39 @@ int built_in_cd(char **cmd, list_t **env)
 	int i = 0;
 	char *home = NULL;
 	char *path = NULL;
+	char **new = NULL;
+	list_t *current;
+	char *ptr;
+
+	current = *env;
+	new = malloc(sizeof(char *) * 2);
+	new[0] = _strdup(cmd[1]);
+	new[1] = NULL;
 
 	while (cmd[i])
 		i++;
 	if (i > 2)
 		return (-1);
 
-	if (get_path(cmd[1]))
+	if (get_path(new, *env))
 	{
-		cmd[1] = get_path(cmd[1]);
+		cmd[1] = get_path(new, *env);
 		if (chdir(cmd[1]) != 0)
 		{
 			perror("error chdir");
 			return (-1);
 		}
 	}
-	else if (cmd[1] == '-' || cmd[1] == NULL)
+	else if ((_strcmp(cmd[1], "-") == 0) || cmd[1] == NULL)
 	{
-		while (*env->next)
+		while (current)
 		{
-			if (_strcmp(*env->str, home))
+			if (_strcmp(current->str, home))
 				break ;
-			*env = *env->next;
+			current = current->next;
 		}
 
-		ptr = strtok(*env->next, "=");
+		ptr = strtok(current->str, "=");
 		ptr = strtok(NULL, "\n");
 
 		path = strdup(ptr);

@@ -8,8 +8,11 @@ int main(int ac, char **av, char **env)
 	size_t bufsize = 0;
 	int i = 0;
 	int built = 0;
+	list_t *ptrEnv = NULL;
 
-	type_prompt();
+	ptrEnv = getenvLinked(env);
+
+	type_prompt(ptrEnv);
 	while (1 && (getline(&buffer, &bufsize, stdin) != EOF))
 	{
 /*		if (getline(&buffer, &bufsize, stdin) == EOF)
@@ -27,12 +30,12 @@ int main(int ac, char **av, char **env)
 				perror("error split");
 				return (-1);
 			}
-			built = exec_builtin(cmd[0]);
+			built = exec_builtin(cmd, &ptrEnv);
 			if (built == 0)
 				return (0);
-			path = get_path(cmd);
+			path = get_path(cmd, ptrEnv);
 			
-			if (path == NULL)
+			if (path == NULL && built != 1)
 			{
 				i = 0;
 				while (cmd[i])
@@ -54,17 +57,17 @@ int main(int ac, char **av, char **env)
 				}
 			}
 			
-			while (cmd[i])
-				free(cmd[i++]);
-			free(cmd);
-		}
-		type_prompt();
-	}
 
+			/*while (cmd[i])
+				free(cmd[i++]);
+				free(cmd);*/
+		}
+		type_prompt(ptrEnv);
+	}
+	
 	free(path);
 	free(buffer);
 	(void)ac;
 	(void)av;
-	(void)env;
 	return (0);
 }

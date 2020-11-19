@@ -6,18 +6,17 @@
  *
  */
 
-int built_in_env(void)
+int built_in_env(char **cmd, list_t **ptrEnv)
 {
-	extern char** environ;
+	list_t *tmp = *ptrEnv;
 
-	int i = 0;
-
-	if (environ == NULL)
-		return (-1);
-	while (environ[i] != NULL)
-	{
-		printf("%s\n", environ[i]);
-		i++;
-	}
+	while (tmp != NULL)
+        {
+                if (tmp->str != NULL)
+                        printf("%s\n", tmp->str);
+                else
+                        printf("(nil)\n");
+                tmp = tmp->next;
+        }
 	return (1);
 }
