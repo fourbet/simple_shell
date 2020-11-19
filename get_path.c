@@ -35,14 +35,18 @@ char*_strcat(char *dest, char *src)
 	return (dest);
 }
 
-char *get_path(char **cmd)
+char *get_path(char **cmd, list_t *ptrEnv)
 {
-	char *path = strdup(_getenv("PATH"));
+	/*char *path = strdup(_getenv("PATH", &ptrEnv));*/
+	char *path;
 	char **path_split = malloc(sizeof(char *) * 64);
 	char *ptr;
 	char *result = NULL;
 	struct stat st;
 	int i = 0;
+
+	if (_getenv("PATH", &ptrEnv) != NULL)
+		path = (_getenv("PATH", &ptrEnv));
 
  	ptr = strtok(path, ":");
 	while (ptr)
