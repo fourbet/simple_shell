@@ -3,73 +3,53 @@
 int main(int ac, char **av, char **env)
 {
 	char **cmd = NULL;
-	char *path;
 	char *buffer = NULL;
-	size_t bufsize = 0;
+	size_t bufsize = 1024;
 	int i = 0;
-	int built = 0;
-	list_t *ptrEnv = NULL;
 
-	ptrEnv = getenvLinked(env);
+	buffer = malloc(sizeof(char) * bufsize);
+	type_prompt();
 
-	type_prompt(ptrEnv);
-	while (1 && (getline(&buffer, &bufsize, stdin) != EOF))
+	while (getline(&buffer, &bufsize, stdin) > 0)
 	{
-/*		if (getline(&buffer, &bufsize, stdin) == EOF)
-			return (0);
-*/
-		if (_strcmp(&buffer[0],"\n") != 0)
+		cmd = split(buffer);
+		if (cmd[0] == NULL)
+			perror("error split");
+
+		if (is_built_in(cmd[0]) == 1)
 		{
-			/*if (getline(&buffer, &bufsize, stdin) <= 0)
+			if (!exec_built(cmd))
 			{
-				perror("error getline");
-				}*/
-			cmd = split(buffer);
-			if (cmd == NULL)
-			{
-				perror("error split");
-				return (-1);
+				free_array(cmd);
+				break ;
 			}
-			built = exec_builtin(cmd, &ptrEnv);
-			if (built == 0)
-				return (0);
-
-			path = get_path(cmd, ptrEnv);
-
-			if (path == NULL && built != 1)
-
-			{
-				i = 0;
-				while (cmd[i])
-				{
-					write(1, cmd[i], _strlen(cmd[i]));
-					putchar(' ');
-					i++;
-				}
-				write(1, ": command not found", 20);
-				putchar('\n');
-			}
-
-			if (path != NULL)
-			{
-				if (exec_cmd(cmd, path) == -1)
-				{
-					perror("error exec cmd");
-					return (-1);
-				}
-			}
-
-			/*while (cmd[i])
->>>>>>> 601755cd5ef1095d31274acb18dc3986b87fe37e
-				free(cmd[i++]);
-				free(cmd);*/
 		}
-		type_prompt(ptrEnv);
+
+		else if (get_path(cmd))
+		{
+			cmd[0] = get_path(cmd);
+			exec_cmd(cmd);
+		}
+		else
+                {
+			i = 0;
+                        while (cmd[i])
+                        {
+				write(1, "sh: ", 5);
+                                write(1, cmd[i], _strlen(cmd[i]));
+                                i++;
+                        }
+                        write(1, ": not found", 20);
+			putchar('\n');
+                }
+
+		type_prompt();
+		free_array(cmd);
 	}
 
-	free(path);
 	free(buffer);
 	(void)ac;
 	(void)av;
+	(void)env;
 	return (0);
 }
