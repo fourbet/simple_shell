@@ -35,22 +35,29 @@ char*_strcat(char *dest, char *src)
 	return (dest);
 }
 
-char *get_path(char **cmd)
+char *get_path(char **cmd, list_t *ptrEnv)
 {
-	char *path = strdup(getenv("PATH"));
+	char *path;
 	char **path_split = NULL;
 	char *ptr = NULL;
 	char *result = NULL;
 	struct stat st;
 	int i = 0;
 
-	if (stat(cmd[0], &st) == 0)
+	if (_getenv("PATH", &ptrEnv) != NULL)
+		path = (_getenv("PATH", &ptrEnv));
+	else
 	{
-		free(path);
-		return (cmd[0]);
+		if (stat(cmd[0], &st) == 0)
+		{
+			result = _strdup(cmd[0]);
+			return(result);
+		}
+		else			
+			return (NULL);
 	}
 
-	path_split = malloc(sizeof(char *) * 64);
+	path_split = malloc(sizeof(char *) * 100);
  	ptr = strtok(path, ":");
 	while (ptr)
 	{
@@ -71,15 +78,21 @@ char *get_path(char **cmd)
 		path_split[i] = strcat(path_split[i], cmd[0]);
 
 		if (stat(path_split[i], &st) == 0)
-			break ;
-
+		{
+			result = _strdup(path_split[i]);
+			free_array(path_split);
+			return (result);
+		}
 		i++;
 	}
 
-	if (path_split[i])
-		result = strdup(path_split[i]);
+	if (result == NULL && stat(cmd[0], &st) == 0)
+	{
+		result = _strdup(cmd[0]);
+		free_array(path_split);
+		return(result);
+	}
 
 	free_array(path_split);
-
 	return (result);
 }

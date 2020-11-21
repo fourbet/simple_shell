@@ -30,7 +30,6 @@ int built_in_setenv(char **cmd, list_t **ptrEnv)
 	int i = 0, passed = 0;
 	list_t *current;
 	char *variable;
-	char *var;
 	char *value;
 
 	while (cmd[i] != NULL)
@@ -47,7 +46,7 @@ int built_in_setenv(char **cmd, list_t **ptrEnv)
 
 	while (current)
 	{
-		if ((strncmp(current->str, variable, _strlen(variable)) == 0))
+		if ((_strncmp(current->str, variable, _strlen(variable)) == 0))
 		{
 			current->str = _strcat2(variable,value);
 			passed = 1;
@@ -83,7 +82,7 @@ int built_in_unsetenv(char **cmd, list_t **ptrEnv)
 
 	while (current)
         {
-                if ((strncmp(current->str, variable, _strlen(variable)) == 0))
+                if ((_strncmp(current->str, variable, _strlen(variable)) == 0))
                 {
                         if (count != 0)
 				previous->next = current->next;
@@ -97,4 +96,5 @@ int built_in_unsetenv(char **cmd, list_t **ptrEnv)
                 current = current->next;
         }
 	write(STDERR_FILENO,"Variable does not exist\n",24);
+	return (1);
 }

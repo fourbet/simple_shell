@@ -9,7 +9,10 @@
 int _strcmp(char *s1, char *s2)
 {
 	int i = 0;
-	
+
+	if (s1 == NULL && s2 == NULL)
+		return (-1);
+
 	while (s1[i] != '\0' && s2[i] != '\0')
 	{
 		if (s1[i] != s2[i])
@@ -19,6 +22,38 @@ int _strcmp(char *s1, char *s2)
 		i++;
 	}
 	return (0);
+}
+
+/**
+ * _strncmp - compares two stringds
+ * @s1: pointer to a char
+ * @s2: pointer to a char
+ * @n: size
+ *
+ * Return: int
+ */
+int _strncmp(char *s1, char *s2, int n)
+{
+        int i = 0;
+	int count = 0;
+	
+	if (s1 == NULL && s2 == NULL)
+		return (-1);
+
+        while (s1[i] != '\0' && s2[i] != '\0' && i < n)
+        {
+                if (s1[i] == s2[i])
+                {
+			count++;
+                }
+		else
+			return (s1[i] - s2[i]);
+                i++;
+        }
+	if (count == n)
+		return (0);
+	else
+		return (-1);
 }
 
 int exec_builtin(char **cmd, list_t **ptrEnv)
@@ -40,3 +75,4 @@ int exec_builtin(char **cmd, list_t **ptrEnv)
 	}
 	return (-1);
 }
+

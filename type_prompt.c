@@ -8,7 +8,6 @@ int type_prompt(list_t *ptrEnv)
        	if (_getenv("PS1", &ptrEnv) != NULL)
 	{
 		prompt = _getenv("PS1", &ptrEnv);
-		printf("prompt : %s\n", prompt);
 	}
 	write(STDOUT_FILENO, prompt, _strlen(prompt));
 	return (0);

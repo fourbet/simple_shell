@@ -6,7 +6,9 @@
  *
  */
 
-int built_in_exit(char **cmd, list_t **PtrEnv)
+int built_in_exit(char **cmd, list_t **ptrEnv)
 {
+	(void)cmd;
+	(void)ptrEnv;
 	return (0);
 }

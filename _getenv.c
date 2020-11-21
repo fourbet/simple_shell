@@ -1,40 +1,54 @@
 #include "holberton.h"
 
-char *_getenv(const char *name)
+char *_strdelete(char *string)
 {
-	extern char **environ;
-        char *env = NULL;
-	char *res = NULL;
-	int i = 0;
-	char **envPtr;
-
-	envPtr = malloc(sizeof(char *) * 32);
-	
-	while(environ[i])
+        char *s;
+        int i = 0;
+        int j = 0;
+	int index = 0;
+        s = malloc(sizeof(char) * _strlen(string));
+	while(string[i] != '\0')
 	{
-		envPtr[i] = strdup(environ[i]);
-		i++;
-	}
-	envPtr[i] = NULL;
-	i = 0;
-	while (envPtr[i] != NULL)
-	{
-		res = strtok(envPtr[i], "=\n");
-		if ((strcmp(res, name) == 0))
+		if (string[i] == '=')
 		{
-			res = strtok(NULL, "=\n");
+			index = i;
 			break;
 		}
 		i++;
 	}
-	env = strdup(res);
 	i = 0;
-	while (envPtr && envPtr[i])
+	index++;
+	while (string[index] != '\0')
 	{
-		free(envPtr[i]);
+		s[i] = string[index];
+		index++;
 		i++;
 	}
-	free(envPtr);
-        return (env);
+        return (s);
 }
 
+char *_getenv(char *name, list_t **ptrEnv)
+{
+        extern char **environ;
+        char *env = NULL;
+        char *res = NULL;
+        int i = 0;
+        int passed = 0;
+        char **envPtr;
+        char *string;
+        list_t *current;
+
+        current = *ptrEnv;
+
+        while (current)
+        {
+                if ((strncmp(current->str, name, _strlen(name)) == 0))
+                {
+                        env = _strdelete(current->str);
+                        passed = 1;
+                        break;
+                }
+                current = current->next;
+        }
+        return (env);
+}

@@ -35,6 +35,7 @@ typedef struct filter
 	int (*ptr_f)(char **, list_t **);
 } filt;
 
+int _strncmp(char *s1, char *s2, int n);
 int built_in_cd(char **cmd, list_t **env);
 int built_in_exit(char **, list_t **);
 int _strcmp(char *s1, char *s2);

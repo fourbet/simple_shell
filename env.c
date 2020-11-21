@@ -18,5 +18,6 @@ int built_in_env(char **cmd, list_t **ptrEnv)
                         printf("(nil)\n");
                 tmp = tmp->next;
         }
+	(void)cmd;
 	return (1);
 }
