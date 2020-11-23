@@ -25,7 +25,7 @@ typedef struct list_s
 
 int _strncmp(char *s1, char *s2, int n);
 int built_in_cd(char **cmd, list_t *env);
-int built_in_exit(char **, list_t **);
+int built_in_exit(char **);
 int _strcmp(char *s1, char *s2);
 char **get_copy_env(char **env);
 int type_prompt(list_t *ptrEnv);
@@ -49,5 +49,9 @@ char *get_cd_path(char **cmd, list_t *env);
 char *_getcwd(list_t **env);
 int is_built_in(char *cmd);
 void free_list(list_t *head);
+char * seterror(char *cmd, int count);
+int _atoi(char *str);
+char *_itoa(int num, char *str);
+int built_in_help(char **cmd);
 
 #endif

@@ -7,7 +7,6 @@ int main(int ac, char **av, char **env)
 	list_t *ptrenv = NULL;
 	char *serror = NULL;
 	size_t bufsize = 0;
-	int i = 0;
 	int count = 0;
 
 	ptrenv = list_env(env);
