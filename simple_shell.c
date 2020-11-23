@@ -9,7 +9,7 @@ int main(int ac, char **av, char **env)
 	int i = 0;
 
 	ptrenv = list_env(env);
-	type_prompt();
+	type_prompt(ptrenv);
 
 	while (getline(&buffer, &bufsize, stdin) > 0)
 	{
@@ -48,7 +48,7 @@ int main(int ac, char **av, char **env)
 			free_array(cmd);
 		}
 
-		type_prompt();
+		type_prompt(ptrenv);
 	}
 
 	free_list(ptrenv);
