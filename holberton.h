@@ -23,20 +23,8 @@ typedef struct list_s
         struct list_s *next;
 } list_t;
 
-/**
- * struct filter - structure with format && return
- * function of pointer
- * @identifier: format
- * @ptr_f: pointer of function
- */
-typedef struct filter
-{
-	char *id;
-	int (*ptr_f)(char **, list_t **);
-} filt;
-
 int _strncmp(char *s1, char *s2, int n);
-int built_in_cd(char **cmd, list_t **env);
+int built_in_cd(char **cmd, list_t *env);
 int built_in_exit(char **, list_t **);
 int _strcmp(char *s1, char *s2);
 char **get_copy_env(char **env);
@@ -47,16 +35,19 @@ int nbr_words(char *str, char *sep);
 void print_array(char **tab);
 char *_strdup(char *str);
 char *_getenv(char *name, list_t **ptrEnv);
-int built_in_env(char **, list_t **);
-int exec_cmd(char **cmd, char *path);
-int exec_builtin(char **cmd, list_t **ptrEnv);
+int built_in_env(list_t *);
+int exec_cmd(char **cmd);
+int exec_built_in(char **cmd, list_t *ptrEnv);
 char *_strcat(char *dest, char *src);
 char *get_path(char **cmd, list_t *ptrEnv);
 char **split(char *buffer);
 list_t *add_node_end(list_t **head, const char *str);
-list_t *_getenvlinked(void);
-list_t *getenvLinked(char **env);
+list_t *list_env(char **env);
 int built_in_setenv(char **cmd, list_t **ptrEnv);
 int built_in_unsetenv(char **cmd, list_t **ptrEnv);
+char *get_cd_path(char **cmd, list_t *env);
+char *_getcwd(list_t **env);
+int is_built_in(char *cmd);
+void free_list(list_t *head);
 
 #endif
