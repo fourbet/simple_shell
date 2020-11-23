@@ -9,7 +9,7 @@
 int built_in_env(list_t *env)
 {
 	if (env == NULL)
-		return (1);
+		return (-1);
 
 	while (env)
 	{
@@ -17,5 +17,5 @@ int built_in_env(list_t *env)
 		putchar('\n');
 		env = env->next;
 	}
-	return (0);
+	return (1);
 }
