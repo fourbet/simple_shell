@@ -1,50 +1,66 @@
 #include "holberton.h"
 
-int built_in_cd(char **cmd, list_t **env)
+int built_in_cd(char **cmd, list_t *env)
 {
-	int i = 0;
-	char *home = NULL;
 	char *path = NULL;
-	char **new = NULL;
-	list_t *current;
-	char *ptr;
+	list_t *current = NULL;
+	char *ptr = NULL;
+	char *cd = NULL;
+	int ch = 1;
 
-	current = *env;
-	new = malloc(sizeof(char *) * 2);
-	new[0] = _strdup(cmd[1]);
-	new[1] = NULL;
-
-	while (cmd[i])
-		i++;
-	if (i > 2)
-		return (-1);
-
-	if (get_path(new, *env))
+	current = env;
+	cd = get_cd_path(cmd, env);
+	if (cd)
 	{
-		cmd[1] = get_path(new, *env);
-		if (chdir(cmd[1]) != 0)
+		puts("if");
+		cmd[1] = cd;
+
+		if (chdir(cmd[1]))
 		{
-			perror("error chdir");
+			perror("chdir error");
 			return (-1);
 		}
+		return (1);
 	}
-	else if ((_strcmp(cmd[1], "-") == 0) || cmd[1] == NULL)
+	else if (cmd[1] == NULL || _strcmp(cmd[1], "-") == 0)
 	{
+		puts("else if");
 		while (current)
 		{
-			if (_strcmp(current->str, home))
+			ptr = strtok(current->str, "=");
+			path = _strdup(ptr);
+			puts(path);
+			if (_strcmp(path, "HOME") == 0)
+			{
+				puts("if strcmp");
+				free(path);
+				puts("test free");
+				path = NULL;
+				ptr = strtok(NULL, "\n");
+				puts("test ptr");
+				path = _strdup(ptr);
+				puts(path);
 				break ;
+			}
+
+			free(path);
+			path = NULL;
 			current = current->next;
 		}
+		puts(path);
+		ch = chdir(path);
+		if (ch < 0)
+		{
+			puts("if ch < 1");
+			free(path);
+			perror("chdir error");
+			return (-1);
+		}
 
-		ptr = strtok(current->str, "=");
-		ptr = strtok(NULL, "\n");
+		free(path);
 
-		path = strdup(ptr);
-		chdir(path);
+		return (1);
 	}
-	else
-		return (-1);
 
-	return (1);
+	return (-1);
 }
