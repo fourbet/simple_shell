@@ -6,7 +6,16 @@ int built_in_cd(char **cmd, list_t *env)
 	list_t *current = NULL;
 	char *ptr = NULL;
 	char *cd = NULL;
-	int ch = 1;
+	int ch = 1, i = 0;
+
+	while (cmd[i] != NULL)
+		i++;
+
+	if (i != 2)
+	{
+		write(STDERR_FILENO,"Failure\n",8);
+		return (1);
+	}
 
 	current = env;
 	cd = get_cd_path(cmd, env);
