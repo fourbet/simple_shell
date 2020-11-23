@@ -6,18 +6,12 @@
  *
  */
 
-int built_in_env(char **cmd, list_t **ptrEnv)
+void built_in_env(list_t *env)
 {
-	list_t *tmp = *ptrEnv;
-
-	while (tmp != NULL)
-        {
-                if (tmp->str != NULL)
-                        printf("%s\n", tmp->str);
-                else
-                        printf("(nil)\n");
-                tmp = tmp->next;
-        }
-	(void)cmd;
-	return (1);
+	while (env)
+	{
+		write(1, env->str, _strlen(env->str));
+		putchar('\n');
+		env = env->next;
+	}
 }
