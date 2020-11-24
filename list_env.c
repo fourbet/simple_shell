@@ -24,7 +24,7 @@ void free_list(list_t *head)
  *@str: node to add
  *Return: Linked list update
  */
-list_t *add_node_end(list_t **head, const char *str)
+list_t *add_node_end(list_t **head, char *str)
 {
 	list_t *new = NULL;
 	list_t *current = NULL;
@@ -32,7 +32,7 @@ list_t *add_node_end(list_t **head, const char *str)
 	new = malloc(sizeof(list_t));
 	if (new == NULL)
 		return (NULL);
-	new->str = strdup(str);
+	new->str = _strdup(str);
 	new->next = NULL;
 
 	if (*head == NULL)

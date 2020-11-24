@@ -49,7 +49,7 @@ char *_getenv(char *name, list_t **ptrEnv)
 	current = *ptrEnv;
 	while (current)
 	{
-		if ((strncmp(current->str, name, _strlen(name)) == 0))
+		if ((_strncmp(current->str, name, _strlen(name)) == 0))
 		{
 			env = _strdelete(current->str);
 			break;

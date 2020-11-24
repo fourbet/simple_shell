@@ -41,21 +41,6 @@ int nbr_words(char *str, char *sep)
 }
 
 /**
- *print_array - print a 2 dimension array
- *@tab: array
- *Return: void
- */
-void print_array(char **tab)
-{
-	int i = 0;
-
-	for (i = 0; tab[i]; i++)
-	{
-		printf("tab[%d] :%s\n", i, tab[i]);
-	}
-}
-
-/**
  *_strdup - duplicate a string
  *@str: string
  *Return: string duplicate
@@ -84,7 +69,7 @@ char **split(char *buffer)
 {
 	char *res = NULL;
 	char **tab = NULL;
-	char separators[3] = " \n\t";
+	char separators[5] = " \n\t\r\f";
 	int count = 0;
 	int i = 0;
 
@@ -101,7 +86,11 @@ char **split(char *buffer)
 	res = strtok(buffer, separators);
 	while (res)
 	{
-		tab[i] = strdup(res);
+		if (_strncmp(_strdup(res), "#", 1) == 0)
+		{
+			break;
+		}
+		tab[i] = _strdup(res);
 		res = strtok(NULL, separators);
 		i++;
 	}

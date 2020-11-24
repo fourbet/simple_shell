@@ -6,7 +6,7 @@
  */
 int built_in_help(char **cmd)
 {
-	int i = 0;
+	int i = 0, j = 0;
 char *built_n[] = {"env", "exit", "setenv", "unsetenv", "cd", "help", NULL};
 char *built_i[] = {"Prints the current environnement\n",
 			"Exits the shell\n",
@@ -19,8 +19,18 @@ char *built_i[] = {"Prints the current environnement\n",
 
 	while (cmd[i] != NULL)
 		i++;
-
-	if (i != 2)
+	if (i == 1)
+	{
+		write(STDOUT_FILENO, "List of Built-ins :\n", 20);
+		while (built_n[j] != NULL)
+		{
+			write(STDOUT_FILENO, built_n[j], _strlen(built_n[j]));
+			write(STDOUT_FILENO, "\n", 1);
+			j++;
+		}
+		return (1);
+	}
+	if (i > 2)
 	{
 		write(STDERR_FILENO, "Failure\n", 8);
 		return (1);
@@ -35,6 +45,5 @@ char *built_i[] = {"Prints the current environnement\n",
 		}
 		i++;
 	}
-	write(STDERR_FILENO, "Failure\n", 8);
 	return (1);
 }

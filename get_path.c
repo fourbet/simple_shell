@@ -110,7 +110,7 @@ char *get_path(char **cmd, list_t *ptrEnv)
 	ptr = strtok(path, ":");
 	while (ptr)
 	{
-		path_split[i] = strdup(ptr);
+		path_split[i] = _strdup(ptr);
 		ptr = strtok(NULL, ":");
 		i++;
 	}
