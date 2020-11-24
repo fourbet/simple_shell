@@ -1,5 +1,10 @@
 #include "holberton.h"
-
+/**
+ * exec_cmd - execute command in the PATH
+ * @cmd: list of commands
+ *
+ * Return: 1(SUCESS), -1(FAILURE)
+ */
 int exec_cmd(char **cmd)
 {
 	pid_t child_pid;

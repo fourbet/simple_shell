@@ -1,11 +1,11 @@
 #include "holberton.h"
 
 /**
- * env - function to execute builtin command env
+ * built_in_env - prints the environnement variables
+ * @env: list of environnement variables
  *
- *
+ * Return: 1(SUCESS), -1(FAILURE)
  */
-
 int built_in_env(list_t *env)
 {
 	if (env == NULL)
