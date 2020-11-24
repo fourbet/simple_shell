@@ -13,7 +13,7 @@ char *_itoa(int num, char *str)
 	int i = 0;
 	int rem = 0;
 	int begin = 0;
-	char *r;
+	char *r = NULL;
 	int end = 0;
 
 	if (num == 0)
@@ -35,6 +35,7 @@ char *_itoa(int num, char *str)
 	i++;
 	str[i] = '\0';
 	r = malloc(sizeof(char) * (i));
+	i--;
 	end = i - 1;
 	for (begin = 0; begin < i; begin++)
 	{
@@ -42,7 +43,6 @@ char *_itoa(int num, char *str)
 		end--;
 	}
 	r[begin] = '\0';
-	printf("itoa r :%s\n", r);
 	return (r);
 }
 /**
@@ -78,13 +78,12 @@ int _atoi(char *str)
  */
 char *seterror(char *cmd, int count)
 {
-	char *i = NULL; 
+	char *i = NULL;
 	char s1[100] = "sh: ";
 	char *s = NULL;
 
-	printf("%d\n", (count / 10) + 1 );
 	i = malloc(sizeof(char) * ((count / 10) + 1));
-	_itoa(count, i);
+	i = _itoa(count, i);
 	s = malloc(sizeof(char) * 100);
 	s = _strcat(s1, i);
 	s = _strcat(s, ": ");

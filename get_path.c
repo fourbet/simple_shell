@@ -93,8 +93,8 @@ char *get_path(char **cmd, list_t *ptrEnv)
 	struct stat st;
 	int i = 0;
 
-	if (_getenv("PATH", &ptrEnv) != NULL)
-		path = _getenv("PATH", &ptrEnv);
+	if (_getenv("PATH=/", &ptrEnv) != NULL)
+		path = _getenv("PATH=/", &ptrEnv);
 	else
 	{
 		if (stat(cmd[0], &st) == 0)
