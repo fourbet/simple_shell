@@ -22,6 +22,8 @@ typedef struct list_s
 	struct list_s *next;
 } list_t;
 
+void _isatty(list_t *ptrenv);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 int _strncmp(char *s1, char *s2, int n);
 int built_in_cd(char **cmd, list_t *env);
 int built_in_exit(char **);
@@ -30,7 +32,7 @@ char **get_copy_env(char **env);
 int type_prompt(list_t *ptrEnv);
 int _strlen(char *s);
 void free_array(char **tab);
-int nbr_words(char *str, char *sep);
+size_t nbr_words(char *str, char *sep);
 void print_array(char **tab);
 char *_strdup(char *str);
 char *_getenv(char *name, list_t **ptrEnv);

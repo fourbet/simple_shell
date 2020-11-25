@@ -18,26 +18,34 @@ void free_array(char **tab)
 
 /**
  *nbr_words - return the number of words in a string
- *@str: string
+ *@s: string
  *@sep: separators
  *Return: integer
  */
-int nbr_words(char *str, char *sep)
+size_t nbr_words(char *s, char *sep)
 {
-	int i = 0, j = 0, count = 0;
+	size_t i = 1, j = 0;
+	size_t nbw = 0;
 
-	while (str[i] != '\0')
+	if (s == NULL)
+		return (0);
+
+	if (*s != ' ')
+		nbw++;
+
+	while (s[i] != '\0')
 	{
-		while (sep[j] != '\0')
+		j = 0;
+		while (sep[j])
 		{
-			if (str[i] == sep[j])
-				count++;
+			if (s[i - 1] == sep[j] && s[i] != sep[j])
+				nbw++;
 			j++;
 		}
-		j = 0;
 		i++;
 	}
-	return (count);
+
+	return (nbw);
 }
 
 /**
@@ -69,15 +77,15 @@ char **split(char *buffer)
 {
 	char *res = NULL;
 	char **tab = NULL;
-	char separators[5] = " \n\t\r\f";
-	int count = 0;
+	char separators[4] = " \n\t\f";
+	size_t count = 0;
 	int i = 0;
 
 	if (buffer == NULL)
 		return (NULL);
 
-	count = nbr_words(buffer, separators);
-	tab = malloc(sizeof(char *) * (count + 1));
+	count = nbr_words(buffer, separators) + 1;
+	tab = malloc(sizeof(char *) * count);
 
 	if (tab == NULL)
 		return (0);

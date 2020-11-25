@@ -1,6 +1,17 @@
 #include "holberton.h"
 
 /**
+ *_isatty - check isatty
+ *@ptrenv: environement
+ *Return: void
+ */
+void _isatty(list_t *ptrenv)
+{
+	if (isatty(STDIN_FILENO) == 1)
+		type_prompt(ptrenv);
+}
+
+/**
  * main - simple shell
  * @ac: numbers arguments
  * @av: aray of arguments
@@ -17,8 +28,7 @@ int main(int ac, char **av, char **env)
 	int count = 0;
 
 	ptrenv = list_env(env);
-	if (isatty(STDIN_FILENO) == 1)
-		type_prompt(ptrenv);
+	_isatty(ptrenv);
 	signal(SIGINT, SIG_IGN);
 	while (getline(&buffer, &bufsize, stdin) > 0)
 	{
@@ -29,10 +39,7 @@ int main(int ac, char **av, char **env)
 			if (is_built_in(cmd[0]) == 0)
 			{
 				if (exec_built_in(cmd, ptrenv) == 0)
-				{
-					free_array(cmd);
 					break;
-				}
 			}
 			else if (get_path(cmd, ptrenv))
 			{
@@ -46,9 +53,9 @@ int main(int ac, char **av, char **env)
 			}
 			free_array(cmd);
 		}
-		if (isatty(STDIN_FILENO) == 1)
-			type_prompt(ptrenv);
+		_isatty(ptrenv);
 	}
+	free_array(cmd);
 	free_list(ptrenv);
 	free(buffer);
 	(void)ac;

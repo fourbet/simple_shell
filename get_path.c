@@ -49,19 +49,22 @@ char *_strcat(char *dest, char *src)
 /**
  *concat - concatenate the entier path of the command
  *@path_split: command to concatenate
+ *@cmd: command
  *Return: final string concatenate
  */
 char *concat(char **path_split, char **cmd)
 {
 	int i = 0;
-	int size = 0;
+	int new_size = 0;
+	int old_size = 0;
 	char *result = NULL;
 	struct stat st;
 
 	while (path_split[i])
 	{
-		size = _strlen(path_split[i]) + _strlen(cmd[0]) + 2;
-		path_split[i] = realloc(path_split[i], size);
+		old_size = _strlen(path_split[i]);
+		new_size = _strlen(path_split[i]) + _strlen(cmd[0]) + 2;
+		path_split[i] = _realloc(path_split[i], old_size, new_size);
 		path_split[i] = _strcat(path_split[i], "/");
 		path_split[i] = _strcat(path_split[i], cmd[0]);
 
@@ -71,7 +74,8 @@ char *concat(char **path_split, char **cmd)
 			free_array(path_split);
 			return (result);
 		}
-		size = 0;
+		old_size = 0;
+		new_size = 0;
 		i++;
 	}
 	return (NULL);
@@ -117,7 +121,6 @@ char *get_path(char **cmd, list_t *ptrEnv)
 	path_split[i] = NULL;
 	free(path);
 	path = NULL;
-
 	cat = concat(path_split, cmd);
 	if (cat)
 		result = cat;
