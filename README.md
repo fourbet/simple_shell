@@ -1,6 +1,4 @@
-# Name
-
-**SIMPLE SHELL**
+# **SIMPLE SHELL**
 
 ## Synopsis
 
