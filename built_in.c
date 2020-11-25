@@ -68,7 +68,7 @@ int _strncmp(char *s1, char *s2, int n)
 int is_built_in(char *cmd)
 {
 	char *built_in[] = {"env", "exit", "setenv",
-			    "unsetenv", "cd", "help", NULL};
+			    "unsetenv", "help", NULL};
 	int i = 0;
 
 	while (built_in[i])
@@ -99,8 +99,6 @@ int exec_built_in(char **cmd, list_t *env)
 		res = built_in_setenv(cmd, &env);
 	if (_strcmp(cmd[0], "unsetenv") == 0)
 		res = built_in_unsetenv(cmd, &env);
-	if (_strcmp(cmd[0], "cd") == 0)
-		res = built_in_cd(cmd, env);
 	if (_strcmp(cmd[0], "help") == 0)
 		res = built_in_help(cmd);
 	return (res);
