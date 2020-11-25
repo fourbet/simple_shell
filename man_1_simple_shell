@@ -1,0 +1,57 @@
+.TH simple_shell 1 "November 13th 2020" "version 1.0" "simple_shell manpage"
+.SH NAME
+hsh - Holberton Shell
+ 
+.SH SYNOPSIS
+.B include header file holberton.h
+.TP
+.B hsh
+.SH DESCRIPTION
+Shell command interpreter that executes command read from the standard input
+
+.SH SYNTAX
+.B Interactive mode:
+.TP
+$ <command> <options> <argument 1> <argument 2>
+.TP
+.B Non Interactive mode:
+.TP
+$ <command> | ./hsh
+
+.SH RETURN VALUE
+Returns the error code given by the last completed command
+.SH BUILT-INS
+.B env
+Prints the current environnement
+.TP
+.B exit
+Exits the shell
+.TP
+.B setenv
+Initialize a new environnement variable or modify existing one
+.TP
+.B unsetenv Remove an environnement variable
+.TP
+.B cd
+Changes the current directory of the process
+.TP
+.B help
+Gives information about builtins
+.SH EXAMPLES
+The following examples will show you how to use the Holberton Shell :
+.PP
+.B Interactive mode :
+.TP
+.B $ /bin/ls
+.TP
+.B $ ls -l
+.TP
+.B Non interractive mode :
+.TP
+.B $ echo "ls -l" | ./hsh
+
+.SH AUTHOR
+Tarek Kheir && Ophelie Fourbet
+.SH COPYRIGHT
+.PP
+Copyright (c) 2020 Tarek Kheir && Ophelie Fourbet
