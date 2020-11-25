@@ -83,13 +83,13 @@ char **split(char *buffer)
 	if (buffer == NULL)
 		return (NULL);
 
-	count = nbr_words(buffer, separators) + 1;
+	count = nbr_words(buffer, _strdup(separators)) + 1;
+	printf("count : %d\n", count);
 	tab = malloc(sizeof(char *) * count);
-
 	if (tab == NULL)
 		return (0);
 	buffer = _strdup(buffer);
-
+	printf("buffer : %s, len:%d\n", buffer, _strlen(buffer));
 	res = strtok(buffer, separators);
 	while (res)
 	{
