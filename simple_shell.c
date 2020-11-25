@@ -22,7 +22,7 @@ void _isatty(list_t *ptrenv)
 int main(int ac, char **av, char **env)
 {
 	char **cmd = NULL;
-	char *buffer = NULL, *serror = NULL;
+	char *buffer = NULL;
 	list_t *ptrenv = NULL;
 	size_t bufsize = 0;
 	int count = 0;
@@ -39,7 +39,10 @@ int main(int ac, char **av, char **env)
 			if (is_built_in(cmd[0]) == 0)
 			{
 				if (exec_built_in(cmd, ptrenv) == 0)
+				{
+					free_array(cmd);
 					break;
+				}
 			}
 			else if (get_path(cmd, ptrenv))
 			{
@@ -47,15 +50,11 @@ int main(int ac, char **av, char **env)
 				exec_cmd(cmd);
 			}
 			else
-			{
-				serror = seterror(cmd[0], count);
-				write(STDOUT_FILENO, serror, _strlen(serror));
-			}
+				seterror(cmd[0], count);
 			free_array(cmd);
 		}
 		_isatty(ptrenv);
 	}
-	free_array(cmd);
 	free_list(ptrenv);
 	free(buffer);
 	(void)ac;

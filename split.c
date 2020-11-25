@@ -77,7 +77,7 @@ char **split(char *buffer)
 {
 	char *res = NULL;
 	char **tab = NULL;
-	char separators[4] = " \n\t\f";
+	char separators[5] = " \r\n\t\f";
 	size_t count = 0;
 	int i = 0;
 

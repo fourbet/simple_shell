@@ -90,5 +90,6 @@ char *seterror(char *cmd, int count)
 	s = _strcat(s, cmd);
 	s = _strcat(s, ": not found\n");
 	free(i);
+	write(STDOUT_FILENO, s, _strlen(s));
 	return (s);
 }
