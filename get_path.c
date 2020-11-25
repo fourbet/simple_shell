@@ -24,11 +24,9 @@ int _strlen(char *s)
  */
 char *_strcat(char *dest, char *src)
 {
-	int i;
-	int j;
+	int i = 0;
+	int j = 0;
 
-	i = 0;
-	j = 0;
 	while (dest[i])
 	{
 		i++;
@@ -52,13 +50,12 @@ char *_strcat(char *dest, char *src)
  *@cmd: command
  *Return: final string concatenate
  */
-char *concat(char **path_split, char **cmd)
+char *concat(char **path_split, char **cmd, struct stat *st)
 {
 	int i = 0;
 	int new_size = 0;
 	int old_size = 0;
 	char *result = NULL;
-	struct stat st;
 
 	while (path_split[i])
 	{
@@ -68,7 +65,7 @@ char *concat(char **path_split, char **cmd)
 		path_split[i] = _strcat(path_split[i], "/");
 		path_split[i] = _strcat(path_split[i], cmd[0]);
 
-		if (stat(path_split[i], &st) == 0)
+		if (stat(path_split[i], st) == 0)
 		{
 			result = _strdup(path_split[i]);
 			free_array(path_split);
@@ -94,20 +91,25 @@ char *get_path(char **cmd, list_t *ptrEnv)
 	char **path_split = NULL;
 	char *ptr = NULL;
 	char *result = NULL;
-	struct stat st;
+	struct stat *st;
 	int i = 0;
 
+	st = malloc(sizeof(struct stat));
 	if (_getenv("PATH=/", &ptrEnv) != NULL)
 		path = _getenv("PATH=/", &ptrEnv);
 	else
 	{
-		if (stat(cmd[0], &st) == 0)
+		if (stat(cmd[0], st) == 0)
 		{
 			result = _strdup(cmd[0]);
+			free(st);
 			return (result);
 		}
 		else
+		{
+			free(st);
 			return (NULL);
+		}
 	}
 
 	path_split = malloc(sizeof(char *) * 100);
@@ -121,12 +123,12 @@ char *get_path(char **cmd, list_t *ptrEnv)
 	path_split[i] = NULL;
 	free(path);
 	path = NULL;
-	cat = concat(path_split, cmd);
+	cat = concat(path_split, cmd, st);
 	if (cat)
 		result = cat;
 
-	if (result == NULL && stat(cmd[0], &st) == 0)
+	if (result == NULL && stat(cmd[0], st) == 0)
 		result = _strdup(cmd[0]);
-
+	free(st);
 	return (result);
 }

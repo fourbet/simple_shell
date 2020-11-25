@@ -32,7 +32,7 @@ char **get_copy_env(char **env);
 int type_prompt(list_t *ptrEnv);
 int _strlen(char *s);
 void free_array(char **tab);
-size_t nbr_words(char *str, char *sep);
+int nbr_words(char *str, char *sep);
 void print_array(char **tab);
 char *_strdup(char *str);
 char *_getenv(char *name, list_t **ptrEnv);

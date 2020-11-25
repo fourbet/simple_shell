@@ -22,10 +22,10 @@ void free_array(char **tab)
  *@sep: separators
  *Return: integer
  */
-size_t nbr_words(char *s, char *sep)
+int nbr_words(char *s, char *sep)
 {
-	size_t i = 1, j = 0;
-	size_t nbw = 0;
+	int i = 1, j = 0;
+	int nbw = 0;
 
 	if (s == NULL)
 		return (0);
@@ -44,7 +44,6 @@ size_t nbr_words(char *s, char *sep)
 		}
 		i++;
 	}
-
 	return (nbw);
 }
 
@@ -55,7 +54,7 @@ size_t nbr_words(char *s, char *sep)
  */
 char *_strdup(char *str)
 {
-	char *s;
+	char *s = NULL;
 	int i = 0;
 
 	s = malloc(sizeof(char) * _strlen(str) + 1);
@@ -78,7 +77,7 @@ char **split(char *buffer)
 	char *res = NULL;
 	char **tab = NULL;
 	char separators[5] = " \r\n\t\f";
-	size_t count = 0;
+	int count = 0;
 	int i = 0;
 
 	if (buffer == NULL)
