@@ -16,8 +16,17 @@ int built_in_exit(char **cmd)
 		return (0);
 	if (i == 2)
 	{
-		status = _atoi(cmd[1]);
-		exit(status);
+		if (_atoi(cmd[1]) >= 0)
+		{
+			status = _atoi(cmd[1]);
+			exit(status);
+		}
+		else
+		{
+			write(STDERR_FILENO, "Failure\n", 8);
+			return (1);
+		}
+
 	}
 	else
 	{

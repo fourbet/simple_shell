@@ -13,8 +13,8 @@ int built_in_env(list_t *env)
 
 	while (env)
 	{
-		write(1, env->str, _strlen(env->str));
-		putchar('\n');
+		write(STDOUT_FILENO, env->str, _strlen(env->str));
+		write(STDOUT_FILENO, "\n", 1);
 		env = env->next;
 	}
 	return (1);
