@@ -30,6 +30,9 @@ int nbr_words(char *s, char *sep)
 	if (s == NULL)
 		return (0);
 
+	if (s[0] == '\n')
+		return (1);
+
 	if (*s != ' ')
 		nbw++;
 
@@ -84,12 +87,10 @@ char **split(char *buffer)
 		return (NULL);
 
 	count = nbr_words(buffer, _strdup(separators)) + 1;
-	printf("count : %d\n", count);
 	tab = malloc(sizeof(char *) * count);
 	if (tab == NULL)
 		return (0);
 	buffer = _strdup(buffer);
-	printf("buffer : %s, len:%d\n", buffer, _strlen(buffer));
 	res = strtok(buffer, separators);
 	while (res)
 	{
@@ -101,6 +102,8 @@ char **split(char *buffer)
 		res = strtok(NULL, separators);
 		i++;
 	}
+	free(buffer);
+	free(res);
 	tab[i] = NULL;
 	return (tab);
 }

@@ -97,16 +97,22 @@ int built_in_unsetenv(char **cmd, list_t **ptrEnv)
 		return (1);
 	}
 	current = *ptrEnv;
-	variable = cmd[1];
+	variable = _strdup(cmd[1]);
 	while (current)
 	{
 		if ((_strncmp(current->str, variable, _strlen(variable)) == 0))
 		{
 			if (count != 0)
+			{
 				previous->next = current->next;
+			}
 			else
+			{
 				*ptrEnv = current->next;
+			}
+			free(current->str);
 			free(current);
+			free(variable);
 			return (1);
 		}
 		count++;
