@@ -31,6 +31,7 @@ char *_strdelete(char *string)
 		index++;
 		i++;
 	}
+	s[i] = '\0';
 	return (s);
 }
 /**
