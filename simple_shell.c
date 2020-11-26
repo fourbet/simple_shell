@@ -61,7 +61,6 @@ int main(int ac, char **av, char **env)
 					seterror(cmd[0], count);
 			}
 			free_array(cmd);
-			
 		}
 		_isatty(ptrenv);
 	}

@@ -67,7 +67,6 @@ char *_strdup(char *str)
 
 	size = _strlen(str) + 1;
 	s = malloc(sizeof(char) * size);
-	printf("malloc : %lu\n", (sizeof(char) * size));
 	while (str[i] != '\0')
 	{
 		s[i] = str[i];
@@ -98,6 +97,7 @@ char **split(char *buffer)
 
 	if (tab == NULL)
 		return (0);
+
 	buffer = _strdup(buffer);
 	res = strtok(buffer, separators);
 
