@@ -75,10 +75,6 @@ $ exit
 Terminate the shell process, if status is given the echo $? will print the value of status
 
 
-## Files
-
--------
-
 ## Authors
 
 ***Ophélie* FOURBET**  ~~ https://github.com/fourbet <br>
