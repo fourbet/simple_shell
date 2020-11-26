@@ -60,6 +60,9 @@ char *_strdup(char *str)
 	char *s = NULL;
 	int i = 0;
 
+	if (str == NULL)
+		return (NULL);
+
 	s = malloc(sizeof(char) * _strlen(str) + 1);
 	while (str[i] != '\0')
 	{
@@ -79,7 +82,7 @@ char **split(char *buffer)
 {
 	char *res = NULL;
 	char **tab = NULL;
-	char separators[5] = " \r\n\t\f";
+	char separators[6] = " \r\n\t\f";
 	int count = 0;
 	int i = 0;
 
@@ -96,7 +99,9 @@ char **split(char *buffer)
 	{
 		if (_strncmp(_strdup(res), "#", 1) == 0)
 		{
-			break;
+			free(buffer);
+			tab[i] = NULL;
+			return (tab);
 		}
 		tab[i] = _strdup(res);
 		res = strtok(NULL, separators);

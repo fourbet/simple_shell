@@ -13,7 +13,7 @@ char *_strdelete(char *string)
 	int i = 0;
 	int index = 0;
 
-	s = malloc(sizeof(char) * _strlen(string));
+	s = malloc(sizeof(char) * (_strlen(string) + 1));
 	while (string[i] != '\0')
 	{
 		if (string[i] == '=')
@@ -44,7 +44,7 @@ char *_strdelete(char *string)
 char *_getenv(char *name, list_t **ptrEnv)
 {
 	char *env = NULL;
-	list_t *current;
+	list_t *current = NULL;
 
 	current = *ptrEnv;
 	while (current)
@@ -52,7 +52,7 @@ char *_getenv(char *name, list_t **ptrEnv)
 		if ((_strncmp(current->str, name, _strlen(name)) == 0))
 		{
 			env = _strdelete(current->str);
-			break;
+			return (env);
 		}
 		current = current->next;
 	}

@@ -9,6 +9,9 @@ int _strlen(char *s)
 {
 	int size = 0;
 
+	if (s == NULL)
+		return (0);
+
 	while (s[size] != '\0')
 	{
 		size++;
@@ -27,6 +30,13 @@ char *_strcat(char *dest, char *src)
 	int i = 0;
 	int j = 0;
 
+	if (dest == NULL && src == NULL)
+		return (NULL);
+
+	if (dest == NULL)
+		return (src);
+	if (src == NULL)
+		return (dest);
 	while (dest[i])
 	{
 		i++;
@@ -93,9 +103,8 @@ char *get_path(char **cmd, list_t *ptrEnv)
 	int i = 0;
 
 	st = malloc(sizeof(struct stat));
-	if (_getenv("PATH=/", &ptrEnv) != NULL)
-		path = _getenv("PATH=/", &ptrEnv);
-	else
+	path = _getenv("PATH=/", &ptrEnv);
+	if (path == NULL)
 	{
 		if (stat(cmd[0], st) == 0)
 		{
@@ -123,7 +132,7 @@ char *get_path(char **cmd, list_t *ptrEnv)
 	cat = concat(path_split, cmd, st);
 	if (cat)
 		result = cat;
-	if (result == NULL && stat(cmd[0], st) == 0)
+	if (cat == NULL && stat(cmd[0], st) == 0)
 		result = _strdup(cmd[0]);
 	free(st);
 	return (result);
