@@ -47,6 +47,7 @@ int nbr_words(char *s, char *sep)
 		}
 		i++;
 	}
+	free(sep);
 	return (nbw);
 }
 
@@ -59,11 +60,14 @@ char *_strdup(char *str)
 {
 	char *s = NULL;
 	int i = 0;
+	int size = 0;
 
 	if (str == NULL)
 		return (NULL);
 
-	s = malloc(sizeof(char) * _strlen(str) + 1);
+	size = _strlen(str) + 1;
+	s = malloc(sizeof(char) * size);
+	printf("malloc : %lu\n", (sizeof(char) * size));
 	while (str[i] != '\0')
 	{
 		s[i] = str[i];
@@ -91,13 +95,15 @@ char **split(char *buffer)
 
 	count = nbr_words(buffer, _strdup(separators)) + 1;
 	tab = malloc(sizeof(char *) * count);
+
 	if (tab == NULL)
 		return (0);
 	buffer = _strdup(buffer);
 	res = strtok(buffer, separators);
+
 	while (res)
 	{
-		if (_strncmp(_strdup(res), "#", 1) == 0)
+		if (_strcmp(res, "#") == 0)
 		{
 			free(buffer);
 			tab[i] = NULL;
@@ -107,8 +113,8 @@ char **split(char *buffer)
 		res = strtok(NULL, separators);
 		i++;
 	}
-	free(buffer);
 	free(res);
+	free(buffer);
 	tab[i] = NULL;
 	return (tab);
 }
