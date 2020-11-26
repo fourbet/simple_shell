@@ -23,7 +23,7 @@ typedef struct list_s
 } list_t;
 
 void _isatty(list_t *ptrenv);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
 int _strncmp(char *s1, char *s2, int n);
 int built_in_cd(char **cmd, list_t *env);
 int built_in_exit(char **);

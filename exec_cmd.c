@@ -12,13 +12,13 @@ int exec_cmd(char **cmd)
 
 	child_pid = fork();
 	if (child_pid == -1)
-		perror("error fork");
+		perror("fork");
 
 	if (child_pid == 0)
 	{
 		if (execve(cmd[0], cmd, NULL) == -1)
 		{
-			perror("error execve");
+			perror("execve");
 			return (-1);
 		}
 	}

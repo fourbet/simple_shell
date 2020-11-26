@@ -61,32 +61,29 @@ char *_strcat(char *dest, char *src)
  *@st: struct stat
  *Return: final string concatenate
  */
-char *concat(char **path_split, char **cmd, struct stat *st)
+char *concat(char *src, char *dest, char delim)
 {
+	char *concat;
+	int len;
 	int i = 0;
-	int new_size = 0;
-	int old_size = 0;
-	char *result = NULL;
+	int j = 0;
 
-	while (path_split[i])
+	len = _strlen(src) + _strlen(dest) + 2;
+	concat = malloc(sizeof(char) * len);
+	if (concat == 0)
+		return (0);
+
+	for (i = 0; src[i]; i++)
+		concat[i] = src[i];
+	concat[i] = delim;
+	i++;
+	for (j = 0; dest[j]; j++)
 	{
-		old_size = _strlen(path_split[i]);
-		new_size = _strlen(path_split[i]) + _strlen(cmd[0]) + 2;
-		path_split[i] = _realloc(path_split[i], old_size, new_size);
-		path_split[i] = _strcat(path_split[i], "/");
-		path_split[i] = _strcat(path_split[i], cmd[0]);
-
-		if (stat(path_split[i], st) == 0)
-		{
-			result = _strdup(path_split[i]);
-			free_array(path_split);
-			return (result);
-		}
-		old_size = 0;
-		new_size = 0;
+		concat[i] = dest[j];
 		i++;
 	}
-	return (NULL);
+	concat[i] = '\0';
+	return (concat);
 }
 
 /**
@@ -97,8 +94,7 @@ char *concat(char **path_split, char **cmd, struct stat *st)
  */
 char *get_path(char **cmd, list_t *ptrEnv)
 {
-	char *path = NULL, *cat = NULL, *ptr = NULL, *result = NULL;
-	char **path_split = NULL;
+	char *path = NULL, *tmp = NULL, *ptr = NULL, *result = NULL;
 	struct stat *st;
 	int i = 0;
 
@@ -108,32 +104,34 @@ char *get_path(char **cmd, list_t *ptrEnv)
 	{
 		if (stat(cmd[0], st) == 0)
 		{
-			result = _strdup(cmd[0]);
+			result = cmd[0];
+			free(path);
 			free(st);
 			return (result);
 		}
 		else
 		{
 			free(st);
+			free(path);
 			return (NULL);
 		}
 	}
-	path_split = malloc(sizeof(char *) * 100);
 	ptr = strtok(path, ":");
 	while (ptr)
 	{
-		path_split[i] = _strdup(ptr);
+		tmp = concat(ptr, cmd[0], '/');
+		i = stat(tmp, st);
+		if (i == 0)
+		{
+			free(st);
+			free(path);
+			return (tmp);
+		}
 		ptr = strtok(NULL, ":");
+		free(tmp);
 		i++;
 	}
-	free(ptr);
-	path_split[i] = NULL;
 	free(path);
-	cat = concat(path_split, cmd, st);
-	if (cat)
-		result = cat;
-	if (cat == NULL && stat(cmd[0], st) == 0)
-		result = _strdup(cmd[0]);
 	free(st);
-	return (result);
+	return (cmd[0]);
 }
