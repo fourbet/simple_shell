@@ -67,7 +67,6 @@ char *_strdup(char *str)
 
 	size = _strlen(str) + 1;
 	s = malloc(sizeof(char) * size);
-	printf("malloc : %lu\n", (sizeof(char) * size));
 	while (str[i] != '\0')
 	{
 		s[i] = str[i];
