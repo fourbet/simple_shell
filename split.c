@@ -24,25 +24,25 @@ void free_array(char **tab)
  */
 int nbr_words(char *s, char *sep)
 {
-	int i = 1, j = 0;
+	int i = 0, j = 0;
 	int nbw = 0;
 
 	if (s == NULL)
 		return (0);
-
-	if (s[0] == '\n')
-		return (1);
-
-	if (*s != ' ')
-		nbw++;
 
 	while (s[i] != '\0')
 	{
 		j = 0;
 		while (sep[j])
 		{
-			if (s[i - 1] == sep[j] && s[i] != sep[j])
-				nbw++;
+			if (s[i] != ' ' && s[i] != sep[j])
+			{
+				if (s[i + 1] == ' ' || s[i + 1] == sep[j])
+				{
+					nbw++;
+					break;
+				}
+			}
 			j++;
 		}
 		i++;
@@ -88,33 +88,38 @@ char **split(char *buffer)
 	char separators[6] = " \r\n\t\f";
 	int count = 0;
 	int i = 0;
+	int nbr = 0;
 
 	if (buffer == NULL)
 		return (NULL);
 
-	count = nbr_words(buffer, _strdup(separators)) + 1;
-	tab = malloc(sizeof(char *) * count);
-
-	if (tab == NULL)
-		return (0);
-
-	buffer = _strdup(buffer);
-	res = strtok(buffer, separators);
-
-	while (res)
+	nbr = nbr_words(buffer, _strdup(separators));
+	if (nbr)
 	{
-		if (_strcmp(res, "#") == 0)
+		count = nbr + 1;
+		tab = malloc(sizeof(char *) * count);
+		if (tab == NULL)
+			return (0);
+
+		buffer = _strdup(buffer);
+		res = strtok(buffer, separators);
+
+		while (res)
 		{
-			free(buffer);
-			tab[i] = NULL;
-			return (tab);
+			if (_strcmp(res, "#") == 0)
+			{
+				free(buffer);
+				tab[i] = NULL;
+				return (tab);
+			}
+			tab[i] = _strdup(res);
+			res = strtok(NULL, separators);
+			i++;
 		}
-		tab[i] = _strdup(res);
-		res = strtok(NULL, separators);
-		i++;
+		free(res);
+		free(buffer);
+		tab[i] = NULL;
+		return (tab);
 	}
-	free(res);
-	free(buffer);
-	tab[i] = NULL;
-	return (tab);
+	return (NULL);
 }

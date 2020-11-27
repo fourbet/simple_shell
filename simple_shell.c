@@ -43,7 +43,7 @@ int main(int ac, char **av, char **env)
 	while (getline(&buffer, &bufsize, stdin) != EOF)
 	{		count++;
 		cmd = split(buffer);
-		if (cmd[0] != NULL)
+		if (cmd && cmd[0])
 		{
 			if (is_built_in(cmd[0]) == 0)
 			{
