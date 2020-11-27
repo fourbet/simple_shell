@@ -56,9 +56,9 @@ char *_strcat(char *dest, char *src)
 
 /**
  *concat - concatenate the entier path of the command
- *@path_split: command to concatenate
- *@cmd: command
- *@st: struct stat
+ *@src: source file
+ *@dest: destination file
+ *@delim: delimiter
  *Return: final string concatenate
  */
 char *concat(char *src, char *dest, char delim)

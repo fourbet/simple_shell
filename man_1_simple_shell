@@ -1,7 +1,7 @@
 .TH simple_shell 1 "November 13th 2020" "version 1.0" "simple_shell manpage"
 .SH NAME
 hsh - Holberton Shell
- 
+
 .SH SYNOPSIS
 .B include header file holberton.h
 .TP
