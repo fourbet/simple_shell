@@ -45,6 +45,7 @@ int built_in_setenv(char **cmd, list_t **ptrEnv)
 	list_t *current;
 	char *variable;
 	char *value;
+	char *new;
 
 	while (cmd[i] != NULL)
 		i++;
@@ -56,11 +57,12 @@ int built_in_setenv(char **cmd, list_t **ptrEnv)
 	current = *ptrEnv;
 	variable = cmd[1];
 	value = cmd[2];
+	new = _strcat2(variable, value);
 	while (current)
 	{
 		if ((_strncmp(current->str, variable, _strlen(variable)) == 0))
 		{
-			current->str = _strcat2(variable, value);
+			current->str = _strdup(new);
 			passed = 1;
 			break;
 		}
@@ -68,8 +70,9 @@ int built_in_setenv(char **cmd, list_t **ptrEnv)
 	}
 	if (passed == 0)
 	{
-		add_node_end(ptrEnv, _strcat2(variable, value));
+		add_node_end(ptrEnv, new);
 	}
+	free(new);
 	return (1);
 }
 /**
