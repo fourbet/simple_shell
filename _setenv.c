@@ -70,7 +70,6 @@ int built_in_setenv(char **cmd, list_t **ptrEnv)
 	}
 	if (passed == 0)
 	{
-		puts("OK\n");
 		add_node_end(ptrEnv, new);
 	}
 	free(new);
