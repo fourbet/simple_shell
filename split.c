@@ -106,7 +106,7 @@ char **split(char *buffer)
 
 		while (res)
 		{
-			if (_strcmp(res, "#") == 0)
+			if (_strncmp(res, "#", 1) == 0)
 			{
 				free(buffer);
 				tab[i] = NULL;
