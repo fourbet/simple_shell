@@ -79,10 +79,10 @@ int _atoi(char *str)
 char *seterror(char *cmd, int count)
 {
 	char *i = NULL;
-	char s1[100] = "sh: ";
+	char s1[100] = "./hsh: ";
 	char *s = NULL;
 
-	i = malloc(sizeof(char) * ((count / 10) + 1));
+	i = malloc(sizeof(char) * ((count / 10) + 3));
 	i = _itoa(count, i);
 	s = malloc(sizeof(char) * 100);
 	s = _strcat(s1, i);
@@ -90,6 +90,46 @@ char *seterror(char *cmd, int count)
 	s = _strcat(s, cmd);
 	s = _strcat(s, ": not found\n");
 	free(i);
-	write(STDOUT_FILENO, s, _strlen(s));
+	write(STDERR_FILENO, s, _strlen(s));
 	return (s);
 }
+/**
+ * errorBuilt - set message error
+ * @cmd: char *
+ * @count: int
+ *
+ * Return: char*
+ */
+char *errorBuilt(char *cmd, int count)
+{
+	char *i = NULL;
+	char s1[100] = "./hsh: ";
+	char *s = NULL;
+
+	i = malloc(sizeof(char) * ((count / 10) + 3));
+	i = _itoa(count, i);
+	s = malloc(sizeof(char) * 100);
+	s = _strcat(s1, i);
+	s = _strcat(s, ": exit: Illegal number: ");
+	s = _strcat(s, cmd);
+	s = _strcat(s, "\n");
+	free(i);
+	write(STDERR_FILENO, s, _strlen(s));
+	return (s);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -95,7 +95,7 @@ int exec_built_in(char **cmd, list_t *env)
 	if (_strcmp(cmd[0], "env") == 0)
 		res = built_in_env(env);
 	if (_strcmp(cmd[0], "exit") == 0)
-		res = built_in_exit(cmd);
+		res = built_in_exit(cmd, env);
 	if (_strcmp(cmd[0], "setenv") == 0)
 		res = built_in_setenv(cmd, &env);
 	if (_strcmp(cmd[0], "unsetenv") == 0)

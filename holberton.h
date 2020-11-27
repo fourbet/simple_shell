@@ -26,7 +26,7 @@ void _isatty(list_t *ptrenv);
 
 int _strncmp(char *s1, char *s2, int n);
 int built_in_cd(char **cmd, list_t *env);
-int built_in_exit(char **);
+int built_in_exit(char **, list_t *env);
 int _strcmp(char *s1, char *s2);
 char **get_copy_env(char **env);
 int type_prompt(list_t *ptrEnv);
@@ -54,5 +54,6 @@ char *seterror(char *cmd, int count);
 int _atoi(char *str);
 char *_itoa(int num, char *str);
 int built_in_help(char **cmd);
-
+char *errorBuilt(char *cmd, int count);
+void built_function(int resBuilt, char **cmd, size_t count, list_t *ptrenv);
 #endif
