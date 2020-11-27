@@ -44,7 +44,7 @@ $ Hey my name is Betty
 $ sh: (order of classification): Hey: not found
 ```
 There is also built-in who are very useful in case the environment is destroy.<br>
-**Built-in** are used to executed something even when the environment is empty.<br> 
+**Built-in** are used to executed something even when the environment is empty.<br>
 There is only one way to call a built-in and that is by **typing his name.**
 
 ```bash

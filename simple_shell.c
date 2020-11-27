@@ -11,9 +11,14 @@ void _isatty(list_t *ptrenv)
 		type_prompt(ptrenv);
 }
 
+/**
+ *sig_ctrl_c - printf prompt when we type ^C
+ *@sig: integer
+ *Return: void
+ */
 void sig_ctrl_c(int sig)
 {
-	write(STDOUT_FILENO,"\n$ ", 3);
+	write(STDOUT_FILENO, "\n$ ", 3);
 	(void)sig;
 }
 /**
@@ -29,8 +34,7 @@ int main(int ac, char **av, char **env)
 	char **cmd = NULL;
 	char *buffer = NULL, *resgetpath = NULL;
 	list_t *ptrenv = NULL;
-	size_t bufsize = 0;
-	int count = 0;
+	int bufsize = 0, count = 0;
 
 	ptrenv = list_env(env);
 	_isatty(ptrenv);
@@ -66,7 +70,5 @@ int main(int ac, char **av, char **env)
 	}
 	free_list(ptrenv);
 	free(buffer);
-	(void)ac;
-	(void)av;
 	return (0);
 }
