@@ -110,8 +110,7 @@ char *get_path(char **cmd, list_t *ptrEnv)
 			return (result);
 		}
 		else
-		{
-			free(st);
+		{			free(st);
 			free(path);
 			return (NULL);
 		}
@@ -125,6 +124,7 @@ char *get_path(char **cmd, list_t *ptrEnv)
 		{
 			free(st);
 			free(path);
+			free(cmd[0]);
 			return (tmp);
 		}
 		ptr = strtok(NULL, ":");
