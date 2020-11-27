@@ -70,6 +70,7 @@ int built_in_setenv(char **cmd, list_t **ptrEnv)
 	}
 	if (passed == 0)
 	{
+		puts("OK\n");
 		add_node_end(ptrEnv, new);
 	}
 	free(new);
@@ -122,6 +123,6 @@ int built_in_unsetenv(char **cmd, list_t **ptrEnv)
 		previous = current;
 		current = current->next;
 	}
-	write(STDERR_FILENO, "Variable does not exist\n", 24);
+	free(variable);
 	return (1);
 }
